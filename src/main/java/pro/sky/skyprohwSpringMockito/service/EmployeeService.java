@@ -20,7 +20,7 @@ public class EmployeeService {
     public Employees add(String firstName, String lastName, double salary, int departmentId) {
 
         if (employees.size() >= MAX_SIZE) {
-            throw new EmployeeStorageIsFullException("Массив сотрудников переполнен");
+            throw new EmployeeStorageIsFullException("400 Массив сотрудников переполнен");
         }
 
         Employees newEmployee = new Employees(firstName, lastName, salary, departmentId);
@@ -41,7 +41,7 @@ public class EmployeeService {
             }
         }
 
-        throw new EmployeeNotFoundException("Такого сотрудника нет");
+        throw new EmployeeNotFoundException("404 Такого сотрудника нет");
     }
 
     public Employees remove(String firstName, String lastName, double salary, int departmentId) {
@@ -51,7 +51,7 @@ public class EmployeeService {
         if (removeResult) {
             return employeeForRemove;
         } else {
-            throw new EmployeeNotFoundException("Сотрудник не удален - не был найден в базе");
+            throw new EmployeeNotFoundException("404 Сотрудник не удален - не был найден в базе");
         }
     }
 

@@ -88,12 +88,40 @@ class EmployeesServiceTest {
         assertEquals(expectedMessage, exception.getMessage());
     }
 
+
+
+        @Test
+        void remove_withEmployeeNotFoundException () {
+            //Подготовка входных данных
+            String firstName = IVAN_FIRST_NAME;
+            String lastName = IVAN_LAST_NAME;
+            double salary = IVAN_SALARY;
+            int depId = FIRST_DEPARTMENT_ID;
+
+            //Подготовка ожидаемого результата
+            String expectedMessage = "404 Такого сотрудника нет";
+            //Начало теста
+            Exception exception = assertThrows(
+                    EmployeeNotFoundException.class,
+                    () -> employeeService.find(firstName, lastName, salary, depId)
+            );
+            assertEquals(expectedMessage, exception.getMessage());
+        }
     @Test
-    void remove() {
+    void remove_success() {
         //Подготовка входных данных
+        String firstName = IVAN_FIRST_NAME;
+        String lastName = IVAN_LAST_NAME;
+        double salary = IVAN_SALARY;
+        int depId = FIRST_DEPARTMENT_ID;
 
         //Подготовка ожидаемого результата
+        employeeService.add(IVAN_FIRST_NAME, IVAN_LAST_NAME, IVAN_SALARY, depId);
+        Employees expectedEmployee = getIvanFirstDep();
 
         //Начало теста
+        Employees actualEmployee = employeeService.remove(firstName, lastName, salary, depId);
+        assertEquals(expectedEmployee, actualEmployee);
+
     }
 }
